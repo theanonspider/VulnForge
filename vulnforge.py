@@ -11,6 +11,7 @@ from datetime import datetime
 
 # Importer les modules
 from modules.port_scanner import PortScannerModule
+from modules.service_enum import ServiceEnumModule
 
 VERSION = "1.0.0"
 CONFIG_FILE = "config.json"
@@ -63,11 +64,13 @@ def scan(target, ports, timeout, threads):
 
 @main.command()
 @click.option("--target", "-t", required=True, help="Target IP or domain")
-@click.option("--service", "-s", default="smb", help="Service to enumerate (smb, ssh, ftp, http)")
-def enum(target, service):
+@click.option("--service", "-s", default="all", help="Service to enumerate (smb, ssh, ftp, http, all)")
+@click.option("--ports", help="Specific ports to check (comma-separated)")
+def enum(target, service, ports):
     """Enumerate services on a target"""
-    print(f"[*] Enumerating {service} on {target}...")
-    print("[i] Module coming soon...")
+    module = ServiceEnumModule()
+    result = module.run(target, service, ports)
+    print(json.dumps(result, indent=2))
 
 @main.command()
 @click.option("--target", "-t", required=True, help="Target IP or domain")
