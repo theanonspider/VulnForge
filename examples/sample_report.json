@@ -1,0 +1,52 @@
+{
+  "tool": "VulnForge",
+  "version": "1.0.0",
+  "timestamp": "2025-01-15T14:32:18.123456",
+  "modules": [
+    {
+      "module": "port_scanner",
+      "timestamp": "2025-01-15T14:32:18.123456",
+      "data": {
+        "target": "192.168.1.1",
+        "open_ports": [22, 80, 445, 3306]
+      }
+    },
+    {
+      "module": "service_enum",
+      "timestamp": "2025-01-15T14:32:25.654321",
+      "data": {
+        "target": "192.168.1.1",
+        "services": [
+          {"service": "ssh", "port": 22, "banner": "OpenSSH 7.2p2", "version": "7.2"},
+          {"service": "http", "port": 80, "banner": "Apache 2.4.18", "version": "2.4.18"},
+          {"service": "smb", "port": 445, "banner": "Windows 10", "version": "10.0"}
+        ]
+      }
+    },
+    {
+      "module": "vuln_checker",
+      "timestamp": "2025-01-15T14:32:30.789012",
+      "data": {
+        "target": "192.168.1.1",
+        "vulnerabilities": [
+          {
+            "service": "smb",
+            "port": 445,
+            "cve": "CVE-2017-0144",
+            "name": "EternalBlue",
+            "risk": "Critical",
+            "description": "SMBv1 remote code execution"
+          },
+          {
+            "service": "ssh",
+            "port": 22,
+            "cve": "CVE-2018-15473",
+            "name": "OpenSSH User Enumeration",
+            "risk": "Medium",
+            "description": "Allows user enumeration via timing attack"
+          }
+        ]
+      }
+    }
+  ]
+}
