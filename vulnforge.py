@@ -9,6 +9,9 @@ import os
 import sys
 from datetime import datetime
 
+# Importer les modules
+from modules.port_scanner import PortScannerModule
+
 VERSION = "1.0.0"
 CONFIG_FILE = "config.json"
 TOKEN_FILE = "vulnforge.token"
@@ -50,10 +53,13 @@ def main():
 @main.command()
 @click.option("--target", "-t", required=True, help="Target IP or domain")
 @click.option("--ports", "-p", default="1-1000", help="Port range (ex: 22,80,443 or 1-1000)")
-def scan(target, ports):
+@click.option("--timeout", default=1, help="Connection timeout (seconds)")
+@click.option("--threads", default=100, help="Number of threads")
+def scan(target, ports, timeout, threads):
     """Scan ports and services on a target"""
-    print(f"[*] Scanning {target} on ports {ports}...")
-    print("[i] Module coming soon...")
+    module = PortScannerModule()
+    result = module.run(target, ports, timeout, threads)
+    print(json.dumps(result, indent=2))
 
 @main.command()
 @click.option("--target", "-t", required=True, help="Target IP or domain")
