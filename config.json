@@ -1,0 +1,14 @@
+{
+  "token_required": true,
+  "reports_dir": "./reports",
+  "log_level": "info",
+  "modules": {
+    "scan": true,
+    "enum": true,
+    "vuln_check": true,
+    "exploit": true,
+    "generate_payload": true,
+    "priv_esc": true,
+    "report": true
+  }
+}
